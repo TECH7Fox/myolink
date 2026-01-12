@@ -1,7 +1,7 @@
 plugins {
     id "maven-publish"
     id "jacoco"
-    id "com.github.kt3k.coveralls" version "2.5.0-x"
+    id "com.github.kt3k.coveralls" version "2.12.2"
 }
 apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
@@ -13,14 +13,11 @@ def myVersionCode = versionMajor * 10000 + versionMinor * 100 + versionPatch
 def myVersionName = "${versionMajor}.${versionMinor}.${versionPatch}"
 
 android {
-    compileSdk 27
-    buildToolsVersion '30.0.3'
+    compileSdk 36
 
     defaultConfig {
         minSdk 27
-        targetSdk 27
-        versionCode myVersionCode
-        versionName myVersionName
+        targetSdk 36
     }
     buildTypes {
         release {
@@ -28,6 +25,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    namespace 'com.tech7fox.myolink'
 }
 
 dependencies {
@@ -35,7 +33,7 @@ dependencies {
 }
 
 // https://stackoverflow.com/a/34572606/1251958
-task javadoc(type: Javadoc) {
+tasks.register('javadoc', Javadoc) {
     source = android.sourceSets.main.java.srcDirs
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
 }
@@ -45,11 +43,8 @@ afterEvaluate {
     })
 }
 
-task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
-    reports {
-        xml.enabled = true
-        html.enabled = true
-    }
+tasks.register('jacocoTestReport', JacocoReport) {
+    dependsOn "testDebugUnitTest"
     getClassDirectories().setFrom(fileTree(
             dir: './build/intermediates/classes/debug',
             excludes: ['com/tech7fox/R*.class',

@@ -19,7 +19,7 @@ import java.util.UUID;
 
 import com.tech7fox.myolink.services.Control;
 import com.tech7fox.myolink.tools.ByteHelper;
-import com.tech7fox.myolink.tools.Logy;
+import com.tech7fox.myolink.tools. Logy;
 
 /**
  * Wrapper for {@link BluetoothAdapter} that finds Myo devices
@@ -43,7 +43,7 @@ public class MyoConnector implements BluetoothAdapter.LeScanCallback {
     }
 
     /**
-     * Scans for Myo devices
+     * Scans for Myo devices (timed scan with callback at the end)
      * Results will only be returned after the scan finished.
      *
      * @param timeout  How long the scan lasts in milliseconds.

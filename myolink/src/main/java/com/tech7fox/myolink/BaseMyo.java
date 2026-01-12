@@ -71,10 +71,9 @@ public class BaseMyo extends BluetoothGattCallback {
         CONNECTING, CONNECTED, DISCONNECTING, DISCONNECTED
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public enum ConnectionSpeed {
         /**
-         * Saves battery power but reducs the data rate.<br>
+         * Saves battery power but reduces the data rate.<br>
          * About ~50 packets/s.
          */
         BATTERY_CONSERVING(BluetoothGatt.CONNECTION_PRIORITY_LOW_POWER),
@@ -109,7 +108,7 @@ public class BaseMyo extends BluetoothGattCallback {
     /**
      * Time until a packet without confirmation is treated as failure.
      *
-     * @return time in miliseconds, default of 250ms.
+     * @return time in milliseconds, default of 250ms.
      */
     public long getTimeoutSendQueue() {
         return mTimeoutSendQueue;
@@ -204,8 +203,8 @@ public class BaseMyo extends BluetoothGattCallback {
             Logy.d(TAG, "Service Control: available");
             BluetoothGattCharacteristic myoInfo = controlService.getCharacteristic(Control.MYOINFO.getCharacteristicUUID());
             Logy.d(TAG, "Characteristic MyoInfo: " + (myoInfo != null ? "available" : "unavailable"));
-            BluetoothGattCharacteristic fimwareInfo = controlService.getCharacteristic(Control.FIRMWARE_VERSION.getCharacteristicUUID());
-            Logy.d(TAG, "Characteristic FirmwareInfo: " + (fimwareInfo != null ? "available" : "unavailable"));
+            BluetoothGattCharacteristic firmwareInfo = controlService.getCharacteristic(Control.FIRMWARE_VERSION.getCharacteristicUUID());
+            Logy.d(TAG, "Characteristic FirmwareInfo: " + (firmwareInfo != null ? "available" : "unavailable"));
             BluetoothGattCharacteristic commandCharacteristic = controlService.getCharacteristic(Control.COMMAND.getCharacteristicUUID());
             Logy.d(TAG, "Characteristic Command: " + (commandCharacteristic != null ? "available" : "unavailable"));
         } else {
@@ -351,7 +350,6 @@ public class BaseMyo extends BluetoothGattCallback {
     private Runnable mLoop = new Runnable() {
         private int mPriority = ConnectionSpeed.BALANCED.getPriority();
 
-        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
         @Override
         public void run() {
             android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_DEFAULT);
