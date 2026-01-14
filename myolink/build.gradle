@@ -4,6 +4,7 @@ plugins {
     id "com.github.kt3k.coveralls" version "2.12.2"
 }
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 apply plugin: 'maven-publish'
 
 def versionMajor = 0
@@ -26,10 +27,24 @@ android {
         }
     }
     namespace 'com.tech7fox.myolink'
+    
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+    
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
     implementation 'com.android.support:support-annotations:28.0.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 
 // https://stackoverflow.com/a/34572606/1251958
