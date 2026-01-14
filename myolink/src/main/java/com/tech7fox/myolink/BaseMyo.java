@@ -5,6 +5,7 @@
  */
 package com.tech7fox.myolink;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
@@ -251,6 +252,7 @@ public class BaseMyo extends BluetoothGattCallback {
         mWaitToken.release();
     }
 
+    @SuppressLint("MissingPermission")
     private void enableNotifications(BluetoothGattService service, final MyoDescriptor descriptor) {
         BluetoothGattCharacteristic classifier = service.getCharacteristic(descriptor.getCharacteristicUUID());
         if (classifier != null && mBluetoothGatt.setCharacteristicNotification(classifier, true)) {
@@ -266,6 +268,7 @@ public class BaseMyo extends BluetoothGattCallback {
         }
     }
 
+    @SuppressLint("MissingPermission")
     private void enableIndication(BluetoothGattService service, final MyoDescriptor descriptor) {
         BluetoothGattCharacteristic classifier = service.getCharacteristic(descriptor.getCharacteristicUUID());
         if (classifier != null && mBluetoothGatt.setCharacteristicNotification(classifier, true)) {
@@ -306,6 +309,7 @@ public class BaseMyo extends BluetoothGattCallback {
      * <p>
      * Calling this multiple times has no effect.
      */
+    @SuppressLint("MissingPermission")
     public void connect() {
         synchronized (mThreadControl) {
             if (mRunning) {
@@ -322,6 +326,7 @@ public class BaseMyo extends BluetoothGattCallback {
     /**
      * Disconnects the bluetooth connection and stops the dispatcher loop.
      */
+    @SuppressLint("MissingPermission")
     public void disconnect() {
         synchronized (mThreadControl) {
             if (!mRunning) {
@@ -350,6 +355,7 @@ public class BaseMyo extends BluetoothGattCallback {
     private Runnable mLoop = new Runnable() {
         private int mPriority = ConnectionSpeed.BALANCED.getPriority();
 
+        @SuppressLint("MissingPermission")
         @Override
         public void run() {
             android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_DEFAULT);
@@ -393,6 +399,7 @@ public class BaseMyo extends BluetoothGattCallback {
     };
     private long mDispatchTime = 0;
 
+    @SuppressLint("MissingPermission")
     private void internalSend(MyoMsg msg) {
         BluetoothGattService gattService = mBluetoothGatt.getService(msg.getServiceUUID());
         if (gattService == null) {
