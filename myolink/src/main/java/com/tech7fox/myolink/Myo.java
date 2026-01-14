@@ -5,6 +5,7 @@
  */
 package com.tech7fox.myolink;
 
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.graphics.Color;
@@ -84,6 +85,7 @@ public class Myo extends BaseMyo {
      * Returns the devicename, call {@link #readDeviceName(ReadDeviceNameCallback)} to update it.<br>
      * Is also updated on successfull {@link #writeDeviceName(String, MyoCommandCallback)} calls.
      */
+    @SuppressLint("MissingPermission")
     public String getDeviceName() {
         if (mDeviceName == null) return getBluetoothDevice().getName(); else return mDeviceName;
     }
