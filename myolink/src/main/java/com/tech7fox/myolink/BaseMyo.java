@@ -167,6 +167,7 @@ public class BaseMyo extends BluetoothGattCallback {
         mConnectionListeners.remove(listener);
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
         if (newState == BluetoothProfile.STATE_CONNECTING) {
