@@ -5,6 +5,7 @@
  */
 package com.tech7fox.myolink;
 
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
@@ -19,7 +20,7 @@ import java.util.UUID;
 
 import com.tech7fox.myolink.services.Control;
 import com.tech7fox.myolink.tools.ByteHelper;
-import com.tech7fox.myolink.tools. Logy;
+import com.tech7fox.myolink.tools.Logy;
 
 /**
  * Wrapper for {@link BluetoothAdapter} that finds Myo devices
@@ -55,6 +56,7 @@ public class MyoConnector implements BluetoothAdapter.LeScanCallback {
             return false;
         mScanMap.clear();
         mScanRunnable = new Runnable() {
+            @SuppressLint("MissingPermission")
             public void run() {
                 mBluetoothAdapter.startLeScan(MyoConnector.this);
                 try {
